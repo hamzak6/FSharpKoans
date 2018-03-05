@@ -41,7 +41,11 @@ module ``13: Finding the length of a list`` =
     [<Test>]
     let ``01 Finding the length of a list, the hard way`` () =
         let length (xs : 'a list) : int =
-            __ // write a function to find the length of a list
+            let rec innerLength xs i = // write a function to find the length of a list
+                match xs with
+                | [] -> i
+                | _::xs -> i + 1 |> innerLength xs
+            innerLength xs 0
         length [9;8;7] |> should equal 3
         length [] |> should equal 0
         length ["Le Comte de Monte-Cristo"] |> should equal 1
@@ -50,4 +54,4 @@ module ``13: Finding the length of a list`` =
     // Hint: https://msdn.microsoft.com/en-us/library/ee340354.aspx
     [<Test>]
     let ``02 Finding the length of a list, the easy way`` () =
-        __ [9;8;5;8;45] |> should equal 5
+        List.length [9;8;5;8;45] |> should equal 5
